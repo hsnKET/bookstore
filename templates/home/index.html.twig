@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	BookStore
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		.landing {
+			height: 450px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+		.cat-filter {
+			font-size: 22px;
+			padding: 8px;
+		}
+	</style>
+	<div class="landing  bg-light">
+
+		<div class="container landing">
+
+			<h1>BookStore</h1>
+			<p>Project Symfony BookStore Gérer Les Livre Et Les Acteur</p>
+			{# Search Bar #}
+			<div class="col-12 col-md-10 col-lg-8">
+				<form class="card card-sm" action="/search" method="get">
+					<div class="card-body row no-gutters align-items-center">
+						<div class="col-auto">
+							<i class="fas fa-search h4 text-body"></i>
+						</div>
+						<!--end of col-->
+						<div class="col">
+							<input name="q" class="form-control form-control-lg form-control-borderless" type="search" placeholder="Nom de livre, ISBN, acteur">
+
+						</div>
+						<!--end of col-->
+						<div class="col-auto">
+							<button class="btn btn-lg btn-primary" type="submit">Chercher</button>
+
+						</div>
+						<!--end of col-->
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+
+	</div>
+
+	{# Landing End #}
+	<hr
+	style="margin-top:0;margin-bottom:1rem;">
+
+
+	{# Side Bar and Content #}
+	<div class="row ps-4 pe-2">
+		<div class="col-3 card card-body ps-2 pe-2" style="height:100%;">
+			<h2>FILTRE</h2>
+			<hr>
+			<div class=" card">
+				<button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+					Catégories
+				</button>
+				<div class="collapse" id="collapseExample">
+					<ul style="list-style:none" class="pt-1" id="genreFiltre">
+						{% for genre in genres %}
+							<li>
+								<input type="radio" class="form-label" id='cat_{{genre.id}}' name="cat" value="{{genre.id}}">
+								<label for="cat_{{genre.id}}">{{genre.nom}}</label>
+							</li>
+						{% endfor %}
+					</ul>
+					<button id="btnReset" class="btn btn-outline-primary p-0 ps-2 pe-2 m-2">reset</button>
+
+				</div>
+			</div>
+
+			<div class="card card-body mt-1">
+				<label for="" class="form-label">date de début</label>
+				<input type="date" id="dateDeb" class="form-control" name="date_deb">
+				<label for="" class="form-label">date de fin</label>
+				<input type="date" id="dateFin" class="form-control" name="date_deb">
+			</div>
+			<button id="btnApply" class="btn btn-primary mt-2">Apply</button>
+
+
+		</div>
+		<div class="col-9 ">
+			<div class="row contentlivre justify-content-start ps-2 pe-3">
+				{% for livre in livres_list %}
+					<div class="col-lg-3 col-md-4 col-sm-6 ps-2 pe-2 pb-2">
+						<div class="card">
+							<img src="{{livre.image}}" height="200px">
+							<div class="card-body">
+								<h5 class="card-title" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">{{livre.titre}}</h5>
+								<p class="card-text">{{livre.isbn}}</p>
+								<div class="row mb-3">
+									<div class="col">
+										{{livre.nombre_pages}}
+										page
+									</div>
+									<div class="col">
+										{{livre.note}}/20
+									</div>
+								</div>
+								<p class="card-text">{{livre.date_de_parution|date("d-m-Y")}}</p>
+								<a href="{{path('home_details',{id:livre.id})}}" class="w-100 mt-2 btn-outline-primary btn">Détails..</a>
+							</div>
+						</div>
+					</div>
+
+				{% endfor %}
+
+
+			</div>
+			<nav aria-label="Page navigation" class="mt-4 d-flex justify-content-start me-3">
+
+				<ul class="pagination pagination-lg" id="paginationbar">
+
+					<li class="page-item" value="{{current_page > 1 ? (current_page - 1) : 1}}">
+						<a class="page-link" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+							<span class="sr-only">Previous</span>
+						</a>
+					</li>
+					{% for page in 1..((total_result / page_limit)|round(0, 'ceil')) %}
+						{% if current_page == page %}
+							<li class="page-item active" value="{{page}}">
+								<a class="page-link">{{page}}</a>
+							</li>
+						{% else %}
+							<li class="page-item" value="{{page}}">
+								<a class="page-link">{{page}}</a>
+							</li>
+						{% endif %}
+					{% endfor %}
+					<li class="page-item {{current_page >= ((total_result / page_limit)|round(0, 'ceil')) ? 'disabled':''}}" value="{{(current_page + 1) > ((total_result / page_limit)|round(0, 'ceil')) ? (current_page + 1) : ((total_result / page_limit)|round(0, 'ceil'))}}"></li>
+
+
+					<a class="page-link" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+						<span class="sr-only">Next</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</div>{% endblock %}{% block javascripts %}
+
+<script src="/javascripts/main.js"></script>
+<script>
+	pagination();
+</script>{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Inscription
+{% endblock %}
+
+{% block body %}
+	<div class="container" style="height:calc(100vh - 173px)">
+		<div class="row mt-3 d-flex justify-content-center align-items-center h-100">
+			<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+				<div class="card" style="border-radius: 15px;">
+					<div class="card-body p-5">
+						<h2 class="text-uppercase text-center mb-3">Connexion</h2>
+						<form method="post">
+							<div class="mb-3 row">
+								<div class="col-12 select">
+									<label for="">Email</label>
+									<input type="email" name="_username" required="required" class="form-control">
+								</div>
+							</div>
+							<div class="mb-3 row">
+								<div class="col-12 select">
+									<label for="">Password</label>
+									<input type="password" name="_password" required="required" class="form-control">
+
+								</div>
+							</div>
+
+							<div class="d-flex justify-content-center">
+								<button type="submit" class="btn btn-primary btn-block btn-lg ">Connexion</button>
+							</div>
+
+							<p class="text-center text-muted mt-3 mb-0">vous n'avez pas de compte enregistré?
+								<a href="{{path('security_inscription')}}" class="fw-bold text-body">
+									<u>Inscription</u>
+								</a>
+							</p>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

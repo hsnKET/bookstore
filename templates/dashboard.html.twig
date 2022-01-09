@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>BookStore</title>
+		<link href="/lib/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+		<link href="/lib/fontawesome/css/solid.min.css" rel="stylesheet">
+		<link href="/lib/fontawesome/css/brands.min.css" rel="stylesheet">
+		<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/css/master.css" rel="stylesheet">
+		<link rel="icon" href="/images/logo.png" type="image/x-icon">
+
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<nav id="sidebar" class="active">
+				<div class="sidebar-header">
+
+					<a class="navbar-brand" href="{{path('dashboard')}}">
+						<img src="/images/logo.png" width="43px" height="43px" style="margin-top:-5px;">
+						<p class="text-primary" style="display:inline;font-weight:bolder;">BookStore</p>
+					</a>
+
+				</div>
+				<ul class="list-unstyled components text-secondary">
+					<li>
+						<a href="{{path('dashboard_auteur')}}">
+
+							<i class="fas fa-user-friends"></i>Auteurs</a>
+					</li>
+					<li>
+						<a href="{{path('dashboard_livre')}}">
+
+							<i class="fas fa-book"></i>Livres</a>
+					</li>
+					<li>
+						<a href="{{path('dashboard_genre')}}">
+
+
+							<i class="fas fa-book"></i>Genres</a>
+					</li>
+
+				</ul>
+			</nav>
+			<div
+				id="body" class="active">
+				<!-- navbar navigation component -->
+				<nav class="navbar navbar-expand-lg navbar-white bg-white">
+					<button type="button" id="sidebarCollapse" class="btn btn-light">
+						<i class="fas fa-bars"></i>
+						<span></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="nav navbar-nav ms-auto">
+							<li class="nav-item dropdown">
+								<div class="nav-dropdown">
+									<a href="#" id="nav2" class="nav-item nav-link dropdown-toggle text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+										<i class="fas fa-user"></i>
+										<span>{{app.user.username}}</span>
+										<i style="font-size: .8em;" class="fas fa-caret-down"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-end nav-link-menu">
+										<ul class="nav-list">
+											<div class="dropdown-divider"></div>
+
+											<li>
+												<a href="{{path('security_deconnexion')}}" class="dropdown-item">
+													<i class="fas fa-sign-out-alt"></i>
+													Déconnexion</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</nav>
+				<!-- end of navbar navigation -->
+				<div class="content">
+					<div class="content">
+						<div class="container">
+							{% for msg in app.flashes('success') %}
+								<div class="alert alert-success" role="alert">
+									{{ msg}}
+								</div>
+							{% endfor %}
+
+							{% for msg in app.flashes('error') %}
+								<div class="alert alert-danger" role="alert">
+									{{ msg}}
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+
+					{% block body %}{% endblock %}
+				</div>
+			</div>
+		</div>
+		<script src="/lib/jquery/jquery.min.js"></script>
+		<script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="/javascripts/script.js"></script>
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+
+	</body>
+
+</html>

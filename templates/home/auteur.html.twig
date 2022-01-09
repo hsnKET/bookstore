@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+	<div class="container">
+
+		<div class="card card-body  mt-3 d-flex justify-content-center align-items-center ">
+
+
+			<h3>{{auteur.nom_prenom}}</h3>
+			<div class="d-flex justify-content-center w-50">
+
+				<div class="row">
+					<div class="col-5 offset-2 ">
+						<h5>
+							Sexe
+						</h5>
+					</div>
+					<div class="col-5">
+						{{auteur.sexe == 'M' ? 'Mâle' : 'Femelle'}}
+
+					</div>
+					<div class="col-5 offset-2">
+						<h5>
+							nationalité
+						</h5>
+					</div>
+					<div class="col-5">
+						{{auteur.nationalite}}
+					</div>
+					<div class="col-5 offset-2">
+						<h5>
+							Date de naissance
+						</h5>
+					</div>
+					<div class="col-5">
+						{{auteur.date_de_naissance|date('m-d-Y')}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card card-body  mt-1 ">
+			<div class="row justify-content-start ps-2 pe-3">
+				{% for livre in livres_list %}
+					<div class="col-lg-3 col-md-4 col-sm-6 ps-2 pe-2 pb-2">
+						<div class="card">
+							<img src="{{livre.image}}" height="200px">
+							<div class="card-body">
+								<h5 class="card-title">{{livre.titre}}</h5>
+								<p class="card-text">{{livre.isbn}}</p>
+								<div class="row mb-3">
+									<div class="col">
+										{{livre.nombre_pages}}
+										page
+									</div>
+									<div class="col">
+										{{livre.note}}/20
+									</div>
+								</div>
+								<p class="card-text">{{livre.date_de_parution|date("m-d-Y")}}</p>
+								<a href="{{path('home_details',{id:livre.id})}}" class="w-100 mt-2 btn-outline-primary btn">Détails..</a>
+							</div>
+						</div>
+					</div>
+
+				{% endfor %}
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+{% endblock %}

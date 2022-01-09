@@ -1,0 +1,184 @@
+{% extends "dashboard.html.twig" %}
+
+{% block stylesheets %}
+
+	<style>
+
+		.select-auteurs {
+
+			display: block;
+			width: 100%;
+		}
+	</style>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.css" rel="stylesheet">
+
+
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="content">
+		<div class="container">
+			<div class="page-title">
+				<h3>Livres</h3>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
+						<div
+							class="card-header">
+							<!-- Title -->
+							{{formTitle}}
+						</div>
+						<div class="card-body">
+							{{form_start(formLivre)}}
+							<div class="mb-3 row">
+								<label class="col-sm-2 form-label" for="nom">Isbn</label>
+								<div class="col-sm-10">
+									{{form_widget(formLivre.isbn)}}
+									<div class="invalid-feedback" style="display:block">
+										{{form_errors(formLivre.isbn)}}
+									</div>
+								</div>
+							</div>
+							<div class="mb-3 row">
+								<label class="col-sm-2 form-label" for="prenom">Titre</label>
+								<div class="col-sm-10">
+									{{form_widget(formLivre.titre)}}
+									<div class="invalid-feedback" style="display:block">
+										{{form_errors(formLivre.titre)}}
+									</div>
+
+								</div>
+							</div>
+							<div class="mb-3 row">
+								<label class="col-sm-2 form-label" for="nationalite">Nombre pages</label>
+
+								<div class="col-sm-10">
+									{{form_widget(formLivre.nombre_pages)}}
+									<div class="invalid-feedback" style="display:block">
+										{{form_errors(formLivre.nombre_pages)}}
+									</div>
+								</div>
+							</div>
+							<div class="mb-3 row">
+								<label class="col-sm-2">Date de parution</label>
+								<div class="col-sm-10 select">
+									{{form_widget(formLivre.date_de_parution)}}
+									<div class="invalid-feedback" style="display:block">
+										{{form_errors(formLivre.date_de_parution)}}
+									</div>
+								</div>
+							</div>
+							<div class="mb-3 row">
+								<label class="col-sm-2">Note</label>
+								<div class="col-sm-10 select">
+									{{form_widget(formLivre.note)}}
+									<div class="invalid-feedback" style="display:block">
+										{{form_errors(formLivre.note)}}
+									</div>
+								</div>
+							</div>
+							<div class="mb-3 row">
+								<label class="col-sm-2">Auteurs</label>
+								<div class="col-sm-10 select">
+									{{form_widget(formLivre.auteurs)}}
+								</div>
+								<div class="invalid-feedback" style="display:block">
+									{{form_errors(formLivre.auteurs)}}
+								</div>
+							</div>
+							<div class="mb-3 row">
+								<label class="col-sm-2">Genres</label>
+								<div class="col-sm-10 select">
+									{{form_widget(formLivre.genres)}}
+								</div>
+								<div class="invalid-feedback" style="display:block">
+									{{form_errors(formLivre.genres)}}
+								</div>
+							</div>
+							<div class="mb-3 row">
+								<label class="col-sm-2">Image</label>
+								<div class="col-sm-10 select">{{form_widget(formLivre.image)}}
+									<div class="invalid-feedback" style="display:block">
+										{{form_errors(formLivre.image)}}
+									</div>
+								</div>
+							</div>
+							<div class="mb-3 row">
+								<label class="col-sm-2">Description</label>
+								<div class="col-sm-10 select">{{form_widget(formLivre.description)}}
+									<div class="invalid-feedback" style="display:block">
+										{{form_errors(formLivre.description)}}
+									</div>
+								</div>
+							</div>
+
+							<div class="mb-3 row">
+								<div class="col-2 offset-2">
+									<input type="submit" value="{{formTitle}}" class="btn btn-primary">
+								</div>
+								{% if (formTitle != 'Ajouter') %}
+									<div class="col-1">
+										<a href="{{path('dashboard_livre_delete',{id:livreModel.id})}}">
+											<input type="button" value="Supprimer" class="btn btn-danger mr-4">
+										</a>
+									</div>
+								{% endif %}
+
+							</div>
+							{{form_end(formLivre)}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
+	<script>
+		new TomSelect('.select-auteurs', {
+
+valueField: 'id',
+labelField: 'nom_prenom',
+searchField: 'nom_prenom',
+hideSelected: true,
+closeAfterSelect: false,
+// fetch remote data
+load: function (query, callback) {
+var url = 'http://127.0.0.1:8000/api/auteurs?q=' + encodeURIComponent(query);
+fetch(url).then(response => response.json()).then((data) => {
+callback(data);
+console.log(data)
+});
+
+
+}
+});
+
+new TomSelect('.select-genres', {
+
+valueField: 'id',
+labelField: 'nom',
+searchField: 'nom',
+hideSelected: true,
+closeAfterSelect: false,
+// fetch remote data
+load: function (query, callback) {
+var url = 'http://127.0.0.1:8000/api/genres?q=' + encodeURIComponent(query);
+fetch(url).then(response => response.json()).then((data) => {
+console.log(data)
+
+callback(data);
+
+});
+
+
+}
+});
+	</script>
+{% endblock %}

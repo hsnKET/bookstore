@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Details
+{% endblock %}
+
+{% block body %}
+
+	<div class="container d-flex justify-content-center align-items-center" style="height: calc(100vh - 156px);">
+
+		<div class="col border p-3  bg-white">
+			<div class="row m-0">
+				<div class="col-lg-4 pb-3">
+					<img width="100%" height="100%" src="{{livre.image}}" class="border p-3">
+
+				</div>
+				<div class="col-lg-8">
+					<div class="border p-3 m-0">
+						<div class="row">
+							<div class="col-lg-12">
+								<h1>{{livre.titre}}</h1>
+							</div>
+							<div class="col-lg-12">
+								<p class="m-0 p-0 ">{{livre.note}}/20</p>
+								<hr class="p-0 m-0">
+							</div>
+							<div class="col-lg-12 pt-2">
+								<h5>Détails de Livre</h5>
+								<span>{{livre.description}}</span>
+							</div>
+							<div class="col-12">
+								<hr class="p-0 m-0 mt-3">
+								<div class="row pt-3">
+									<div class="col-5 ">
+										<h5>ISBN</h5>
+										{{livre.isbn}}
+									</div>
+									<div class="col-5">
+										<h5>Date De Parution</h5>
+										{{livre.date_de_parution|date()}}
+									</div>
+									<div class="col-2">
+										<h5>Nbr Pages</h5>
+										{{livre.nombre_pages}}
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<hr class="p-0 mt-3">
+								<strong>Genres :</strong>
+								<div class="pt-2">
+									{% for genre in livre.genres %}
+										<span class="p-1 ps-2 pe-2 rounded-pill bg-light inline-block">
+											{{genre.nom}}
+										</span>
+									{% endfor %}
+								</div>
+							</div>
+
+
+							<div class="col-lg-12">
+								<hr class="p-0 mt-3">
+
+								<strong>Auteurs :</strong>
+								<div class="pt-2">
+									{% for auteur in livre.auteurs %}
+										<a href="{{path('home_auteur',{id:auteur.id})}}" style="text-decoration:none;">
+											<span class="p-1 ps-2 pe-2 rounded-pill bg-light inline-block">
+												{{auteur.nom_prenom}}
+											</span>
+										</a>
+									{% endfor %}
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

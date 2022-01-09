@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+	<div class="container pb-5" style="min-height:calc(100vh - 209px);">
+		{% for auteur in auteurs %}
+			<div class="card-body card mt-3">
+				<div class="row">
+					<div class="col-10">
+						<h5>{{auteur.nom_prenom}}</h5>
+					</div>
+					<div class="col-2">
+						<p>
+							<i class="fas fa-map-marker-alt text-primary"></i>
+							{{auteur.nationalite}}
+						</p>
+						<p>
+							<i class="fas fa-venus-mars text-primary"></i>
+							{{auteur.sexe == 'M' ? 'Mâle':'Femelle'}}
+						</p>
+					</div>
+					<div class="col-12 m-0 p-0 ps-2 pe-2">
+						<hr>
+					</div>
+					<div class="col-12">
+						<div class="row">
+							<div class="col-10">
+								<b>Né en</b>
+								{{auteur.date_de_naissance | date('d-m-Y')}}
+							</div>
+							<div class="col-2">
+								<a href="{{path('home_auteur',{id:auteur.id})}}">
+									<button class="btn btn-outline-primary m-0 p-0 ps-2 pe-2 ">Détails</button>
+								</a>
+
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+		{% endfor %}
+
+
+	</div>
+
+
+{% endblock %}
