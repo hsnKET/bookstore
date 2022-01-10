@@ -8,34 +8,28 @@
 
 
 			<h3>{{auteur.nom_prenom}}</h3>
-			<div class="d-flex justify-content-center w-50">
-
+			<div class="d-flex justify-content-center">
 				<div class="row">
-					<div class="col-5 offset-2 ">
+					<div class="col-3 offset-2">
 						<h5>
 							Sexe
 						</h5>
-					</div>
-					<div class="col-5">
 						{{auteur.sexe == 'M' ? 'Mâle' : 'Femelle'}}
-
 					</div>
-					<div class="col-5 offset-2">
-						<h5>
-							nationalité
-						</h5>
-					</div>
-					<div class="col-5">
-						{{auteur.nationalite}}
-					</div>
-					<div class="col-5 offset-2">
+					<div class="col-4">
 						<h5>
 							Date de naissance
 						</h5>
-					</div>
-					<div class="col-5">
 						{{auteur.date_de_naissance|date('m-d-Y')}}
+
 					</div>
+					<div class="col-3">
+						<h5>
+							Nationalité
+						</h5>
+						{{auteur.nationalite}}
+					</div>
+
 				</div>
 			</div>
 		</div>
