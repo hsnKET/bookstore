@@ -49,21 +49,16 @@
 										<p>{{livre.isbn}}</p>
 									</div>
 									<div class="col-5">
-										<p>{{livre.date_de_parution|date()}}</p>
+										<p>{{livre.date_de_parution|date('Y-m-d')}}</p>
 									</div>
 									<div class="col-3">
 										<p>{{livre.nombre_pages}}</p>
 									</div>
 								</div>
 							</div>
-
-
 						</div>
 					</div>
-
 				{% endfor %}
-
-
 			</div>
 		</div>
 	</div>

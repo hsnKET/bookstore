@@ -39,15 +39,15 @@ function loadData(page = 1) {
     xhr.open('POST', url, true);
     xhr.onload = function () {
         if (this.status == 200) {
-            data = JSON.parse(this.responseText);
+            let mdata = JSON.parse(this.responseText);
             let res = '';
-            data.data.forEach(livre => {
+            mdata.data.forEach(livre => {
                 let content = getCard(livre);
                 res += content;
             });
             let p = page ? page : 1;
             document.querySelector('.contentlivre').innerHTML = res;
-            updatePagebar(p, data.page_limit, data.total_result);
+            updatePagebar(p, mdata.page_limit, mdata.total_result);
         }
     }
     xhr.send();
@@ -67,7 +67,6 @@ function pagination() {
 
 function updatePagebar(page, page_limit, total_result) {
 
-    console.log(page + " tr " + total_result + " pl " + page_limit)
     let pb = document.querySelector('#paginationbar');
     let res = '';
     res += prevPage(page);
@@ -90,8 +89,8 @@ function getCard(livre) {
                                 <img src="${livre.image}" height="200px">
                                     <div class="card-body">
                                         <h5 class="card-title" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">${livre.titre}</h5>
-                                        <p class="card-text">${livre.isbn}</p>
-                                        <p class="card-text">${lformatDate(ivre.date_de_parution)}</p>
+                                        <p class="card-text">${livre.isbn + ""}</p>
+                                        <p class="card-text">${formatDate(livre.date_de_parution)}</p>
                                         <div class="row">
                                             <div class="col">
                                             ${livre.nombre_pages} page

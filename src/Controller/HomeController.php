@@ -19,7 +19,6 @@ class HomeController extends AbstractController
     public function index(GenreRepository $repoGenre, LivreRepository $repo, NormalizerInterface $normalizer): Response
     {
 
-
         $livresList = $repo->getLivrePagineted(1, $this->PAGE_LIMIT);
         $total_result = $repo->getLivrePaginetedCount();
         $genres = $repoGenre->findAll();
@@ -46,10 +45,8 @@ class HomeController extends AbstractController
     #[Route('/search', name: 'home_search')]
     public function search(Request $request, LivreRepository $repo): Response
     {
-
         $q = $request->query->get('q', '');
         $livres = $repo->findByLikeField($q);
-
         return $this->render('home/search.html.twig', [
             'controller_name' => 'HomeController',
             'livres' => $livres,
@@ -59,10 +56,8 @@ class HomeController extends AbstractController
     #[Route('/auteur/{id}', name: 'home_auteur')]
     public function auteur(?int $id, AuteurRepository $repoA, LivreRepository $repo): Response
     {
-
         $auteur = $repoA->find($id);
         $livres_list = $repo->findByActeur($id);
-
         return $this->render('home/auteur.html.twig', [
             'controller_name' => 'HomeController',
             'livres_list' => $livres_list,
@@ -73,9 +68,7 @@ class HomeController extends AbstractController
     #[Route('/auteurs', name: 'home_auteur_list')]
     public function auteurs(AuteurRepository $repoA): Response
     {
-
         $auteurs = $repoA->findAll();
-
         return $this->render('home/auteurs.html.twig', [
             'controller_name' => 'HomeController',
             'auteurs' => $auteurs,

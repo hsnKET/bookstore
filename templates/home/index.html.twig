@@ -1,9 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	BookStore
-{% endblock %}
-
 {% block body %}
 
 	<style>
@@ -24,7 +20,7 @@
 		<div class="container landing">
 
 			<h1>BookStore</h1>
-			<p>Project Symfony BookStore Gérer Les Livre Et Les Acteur</p>
+			<p>Project Symfony BookStore, Gérer Les Livres, Genres Et Les Acteurs</p>
 			{# Search Bar #}
 			<div class="col-12 col-md-10 col-lg-8">
 				<form class="card card-sm" action="/search" method="get">
@@ -63,10 +59,11 @@
 			<h2>FILTRE</h2>
 			<hr>
 			<div class=" card">
-				<button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-					Catégories
+				<button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#categoriescollapse" aria-expanded="false" aria-controls="collapseExample">
+
+					<h6>Catégories</h6>
 				</button>
-				<div class="collapse" id="collapseExample">
+				<div class="collapse" id="categoriescollapse">
 					<ul style="list-style:none" class="pt-1" id="genreFiltre">
 						{% for genre in genres %}
 							<li>
@@ -81,6 +78,7 @@
 			</div>
 
 			<div class="card card-body mt-1">
+				<h6>Date de parution</h6>
 				<label for="" class="form-label">date de début</label>
 				<input type="date" id="dateDeb" class="form-control" name="date_deb">
 				<label for="" class="form-label">date de fin</label>
@@ -151,7 +149,6 @@
 		</nav>
 	</div>
 </div>{% endblock %}{% block javascripts %}
-
 <script src="/javascripts/main.js"></script>
 <script>
 	pagination();

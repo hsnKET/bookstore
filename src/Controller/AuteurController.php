@@ -16,7 +16,6 @@ class AuteurController extends AbstractController
     {
 
         $auteurs = $repo->findByLikeField($request->query->get('q'));
-
         $arr = $normalizer->normalize($auteurs, null, ['groups' => 'readed']);
         return $this->json($arr);
     }

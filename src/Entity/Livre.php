@@ -27,7 +27,7 @@ class Livre
     #[ORM\Column(type: 'string', length: 17)]
     #[Assert\Isbn(
         type: Assert\Isbn::ISBN_13,
-        message: 'Isbn non valid',
+        message: 'Isbn none valid',
     )]
     private $isbn;
 
@@ -35,6 +35,7 @@ class Livre
     #[ORM\Column(type: 'string', length: 255)]
     private $titre;
 
+    #[Assert\Positive]
     #[Groups('readed')]
     #[ORM\Column(type: 'integer')]
     private $nombre_pages;
@@ -45,15 +46,19 @@ class Livre
 
     #[Groups('readed')]
     #[ORM\Column(type: 'integer')]
+    #[Assert\Positive]
     private $note;
 
+    #[Assert\NotNull]
     #[ORM\ManyToMany(targetEntity: Auteur::class, mappedBy: 'livres')]
     private $auteurs;
 
+    #[Assert\NotNull]
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'livres')]
     private $genres;
 
     #[Groups('readed')]
+    #[Assert\Url]
     #[ORM\Column(type: 'string', length: 255)]
     private $image;
 
