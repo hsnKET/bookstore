@@ -3,7 +3,8 @@ let dateDeb = document.getElementById('dateDeb');
 let dateFin = document.getElementById('dateFin');
 let btnReset = document.getElementById('btnReset');
 let genreFiltre = document.querySelectorAll('#genreFiltre input[type=radio]');
-let baseUrl = 'http://127.0.0.1:8000/api/livres_filtre';
+let domain_name = window.location.hostname;
+let baseUrl = domain_name + '/api/livres_filtre';
 
 btnApply.addEventListener('click', e => {
     loadData();
