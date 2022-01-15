@@ -5,6 +5,14 @@
 {% endblock %}
 
 {% block body %}
+	{% if error %}
+		<div class="container">
+			<div class="alert alert-danger" role="alert">
+				{{ error.messageKey|trans(error.messageData, 'security') }}
+			</div>
+		</div>
+	{% endif %}
+
 	<div class="container" style="height:calc(100vh - 173px)">
 		<div class="row mt-3 d-flex justify-content-center align-items-center h-100">
 			<div class="col-12 col-md-9 col-lg-7 col-xl-6">

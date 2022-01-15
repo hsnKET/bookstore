@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
@@ -38,10 +39,12 @@ class SecurityController extends AbstractController
         ]);
     }
     #[Route('/connexion', name: 'security_connexion')]
-    public function connexion(): Response
+    public function connexion(AuthenticationUtils $authenticationUtils): Response
     {
+        $error = $authenticationUtils->getLastAuthenticationError();
         return $this->render('security/connexion.html.twig', [
-            'controller_name' => 'SecurityController'
+            'controller_name' => 'SecurityController',
+            'error' => $error
         ]);
     }
 
